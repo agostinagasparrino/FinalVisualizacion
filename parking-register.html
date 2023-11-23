@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/encabezado.css" />
+</head>
+
+<body class="min-vh-100">
+
+    <header>
+        <nav class="encabezado">
+          <div id="barras">
+            
+           </div>
+            <div class="logo">
+              <i class="fa-solid fa-bars" id="barras" style="color: #ffffff;"></i>
+              <div>
+                <img src="img/logo/Logo.png" width="40rem">
+              <a href="home.html"> estacionAR </a>
+              </div>
+              
+            </div>
+    
+            <div class="notificaciones">
+                <h4 id="last-notification" class="bg-white px-3 py-2 rounded-4 fs-6 text-gray d-inline-block text-truncate">No
+                  hay
+                  alertas en este momento.</h4>
+                <a href="#" id="liveToastBtn" class="position-relative px-2 pb-1">
+                  <i class="fa-solid fa-bell text-primary fs-3"></i>
+                  <span id="count-notif"
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    0
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                </a>
+              </div>
+    
+              
+                <ul class="menu display-none">
+                  <li class="nav-item">
+                    <a class="nav-link px-2 text-white text-bold" href="home.html">Inicio</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white text-bold segundo" href="profile.html">Perfil</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white text-bold" role="button" href="login.html">
+                      <i class="bi bi-box-arrow-left fs-3"></i>
+                    </a>
+                  </li>
+                </ul>
+             
+      
+        </nav>
+    
+    </header>
+
+    <main role="main" class="container-fluid m-f">
+        <section >
+            <div class="container bg-windows mx-auto p-2 my-3" style="border-radius: 1.5rem">
+
+                <h1 class="titleView fs-3">Registrar Parking</h1>
+
+                <form action="home.html" method="post" onsubmit="return validateForm()">
+
+                    <div class="divContainer divContainerBorderBottom my-1">
+
+                        <label for="parkingType" class="text-white text-bold mb-1">Seleccionar Tipo:</label>
+
+                        <select id="parkingType" onchange="renderForms()" class="form-select my-1">
+
+                            <option value="STREET" selected>Vía Publica</option>
+
+                            <option value="GARAGE">Estacionamiento</option>
+
+                            <option value="POINT_SALE">Estacionamiento Medido</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="divContainer divContainerBorderBottom my-1">
+                        <label for="vehicle" class="text-white text-bold mb-1">Seleccionar Vehículo:</label>
+                        <select field="*{vehicle}" id="vehicle" class="form-select my-1">
+                            <option>Marca - Patente </option>
+                            <option>BMW - ABC123</option>
+                        </select>
+                    </div>
+
+                    <div class="divContainer divContainerBorderBottom my-1">
+                        <label for="vehiclePic" class="text-white text-bold mb-1">Foto del vehículo:</label>
+                        <input field="*{vehiclePic}" id="vehiclePic" type="file" accept="image/jpeg"
+                            class="form-control my-1">
+                    </div>
+
+                    <div id="typeGarage" class="divContainer divContainerBorderBottom my-1" style="display:none">
+                        <label for="ticketPic" class="text-white text-bold mb-1">Foto de Ticket:</label>
+                        <input id="ticketPic" type="file" accept="image/jpeg" class="form-control my-1">
+                    </div>
+
+                    <div class="divContainer divContainerBorderBottom my-1">
+                        <label for="parkingDate" class="text-white text-bold mb-1">Fecha y hora de
+                            estacionamiento:</label>
+                        <input field="*{parkingDate}" id="parkingDate" type="datetime-local" class="form-control my-1">
+                    </div>
+
+                    <div id="geolocation" class="divContainer divContainerBorderBottom my-1">
+
+                        <label for="geolocation" class="text-white text-bold mb-1">Verifica el parking:</label>
+
+                        <input field="*{lat}" id="lat" class="d-none" type="text">
+
+                        <input field="*{ln}" id="ln" class="d-none" type="text">
+
+                        <div class="px-2 mb-2 mt-2">
+                            <div id="myMap" class="mapRegister" style="border-radius: 1rem !important; overflow: hidden;">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="pointSaleDiv" class="divContainer my-1" style="display:none">
+
+                        <label for="pointSale" class="text-white text-bold mb-1">Tu punto de pago seleccionado:</label>
+
+                        <input field="*{parkingPlaceId}" id="pointSale" class="d-none" type="text">
+
+                        <p id="pointSaleText" text="'Aún no se ha seleccionado un punto de pago.'" class="text-white">
+                        </p>
+
+
+                        <!--Checkbox-->
+                        <ul class="list-group text-shadow-none">
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                    id="firstRadio" checked>
+                                <label class="form-check-label" for="firstRadio">Efectivo</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                    id="secondRadio">
+                                <label class="form-check-label" for="secondRadio">Tarjeta de crédito/débito</label>
+                            </li>
+                        </ul>
+
+                        <!-- Modal -->
+                        <div class="modal text-shadow-none" id="myModal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-white">Tarjeta de crédito/débito</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-black">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-3" id="floatingInput"
+                                                placeholder="Nombre completo" form="dummyForm">
+                                            <label for="floatingInput">Nombre completo</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control rounded-3" id="floatingNumber"
+                                                placeholder="Numero de la tarjeta" form="dummyForm">
+                                            <label for="floatingNumber">Numero de la tarjeta</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-3" id="expiration"
+                                                placeholder="Fecha de vencimiento" maxlength="5"
+                                                oninput="formatExpiration()" form="dummyForm">
+                                            <label for="expiration">Fecha de vencimiento</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control rounded-3" id="floatingCod"
+                                                maxlength="4" placeholder="Código de seguridad" form="dummyForm">
+                                            <label for="floatingCod">Codigo de seguridad</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
+                                        </button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                            onclick="">Aceptar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="divContainer my-3">
+
+                        <input type="submit" value="Registrar" class="btn btn-lg btn-block rounded-4 box-shadow text-bold px-5
+                 fs-6 text-center btn-primary text-white text-bold">
+
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-windows">
+        <div class="container py-3">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-6 text-white mb-3 mb-md-0">© 2023 estacionAR, Argentina</div>
+                <div class="col-12 col-md-6">
+                    <ul class="nav justify-content-md-end justify-content-center">
+                        <li class="ms-3"><a class="text-white" href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li class="ms-3"><a class="text-white" href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li class="ms-3"><a class="text-white" href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+<script type='text/javascript'>
+    const viewName = "parking-register";
+</script>
+
+<script type='text/javascript' charset="UTF-8" src="js/bingMaps.js"></script>
+
+<script type='text/javascript'>
+    var parkingDateInput = document.getElementById("parkingDate");
+
+    var now = new Date();
+    var formattedNow = now.toISOString().slice(0, 16);
+
+    parkingDateInput.value = formattedNow;
+
+    function renderForms() {
+        let parking = document.getElementById("parkingType").value;
+        let divGarage = document.getElementById("typeGarage");
+        let divPointSale = document.getElementById("pointSaleDiv");
+
+        switch (parking) {
+            case "GARAGE":
+                divGarage.style.display = "block";
+                divPointSale.style.display = "none";
+                deleteParkingPlacePin("Garage");
+                createPinParkingPlaces("Garage");
+                break;
+            case "POINT_SALE":
+                divPointSale.style.display = "block";
+                divGarage.style.display = "none";
+                deleteParkingPlacePin("PointSale");
+                createPinParkingPlaces("PointSale");
+                break;
+            case "STREET":
+                divPointSale.style.display = "none";
+                divGarage.style.display = "none";
+                deleteParkingPlacePin("Garage");
+                deleteParkingPlacePin("PointSale");
+                break;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = new bootstrap.Modal(document.getElementById("myModal"));
+        const firstRadio = document.getElementById("firstRadio");
+        const secondRadio = document.getElementById("secondRadio");
+
+        secondRadio.addEventListener("change", function () {
+            if (secondRadio.checked) {
+                modal.show();
+            } else {
+                modal.hide();
+            }
+        });
+
+        const acceptButton = document.querySelector("[data-bs-dismiss='modal'][data-bs-save-changes]");
+        acceptButton.addEventListener("click", () => {
+            modal.hide();
+            firstRadio.disabled = false;
+        });
+
+        modal._element.addEventListener("hidden.bs.modal", () => {
+            firstRadio.disabled = false;
+        });
+    });
+
+    function formatExpiration() {
+        const input = document.getElementById("expiration");
+        const value = input.value;
+
+        const numericValue = value.replace(/\D/g, "");
+
+        const month = numericValue.slice(0, 2);
+        const year = numericValue.slice(2, 4);
+
+        if (parseInt(month) < 1 || parseInt(month) > 12) {
+            input.setCustomValidity("El mes debe estar entre 01 y 12");
+        } else {
+            input.setCustomValidity("");
+        }
+
+        if (numericValue.length >= 2) {
+            input.value = `${month}/${year}`;
+        } else {
+            input.value = numericValue;
+        }
+    }
+
+    function validateForm() {
+        var parkingType = document.getElementById("parkingType").value;
+        var pointSale = document.getElementById("pointSale").value;
+
+        if (parkingType === "POINT_SALE" && pointSale === "") {
+            alert("Por favor, selecciona un punto de pago antes de registrar el estacionamiento medido.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<script type='text/javascript'
+    src='https://www.bing.com/api/maps/mapcontrol?callback=initializeBingMap&key=AmmJKyxVf-6eaa2iHK_GT4J0wH58FQbLciGKGgSMYZWJSjeZ8x5Tc67SrzWnTLmQ&setLang=es'
+    async defer></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/menuDesplegable.js"></script>
+<script src="https://kit.fontawesome.com/c0cf04e4bc.js" crossorigin="anonymous"></script>
+
+</html>

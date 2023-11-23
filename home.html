@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+   integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+   integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css" />
+  
+  <link rel="stylesheet" href="css/encabezado.css" />
+</head>
+
+<body class="min-vh-100">
+
+  <header>
+    <nav class="encabezado">
+      <div id="barras">
+        
+       </div>
+        <div class="logo">
+          <i class="fa-solid fa-bars" id="barras" style="color: #ffffff;"></i>
+          <div>
+            <img src="img/logo/Logo.png" width="40rem">
+          <a href="home.html"> estacionAR </a>
+          </div>
+          
+        </div>
+
+        <div class="notificaciones">
+            <h4 id="last-notification" class="bg-white px-3 py-2 rounded-4 fs-6 text-gray d-inline-block text-truncate">No
+              hay
+              alertas en este momento.</h4>
+            <a href="#" id="liveToastBtn" class="position-relative px-2 pb-1">
+              <i class="fa-solid fa-bell text-primary fs-3"></i>
+              <span id="count-notif"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                0
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </a>
+          </div>
+
+          
+            <ul class="menu display-none">
+              <li class="nav-item">
+                <a class="nav-link px-2 text-white text-bold" href="home.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white text-bold segundo" href="profile.html">Perfil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white text-bold" role="button" href="login.html">
+                  <i class="bi bi-box-arrow-left fs-3"></i>
+                </a>
+              </li>
+            </ul>
+         
+  
+    </nav>
+
+</header>
+
+<main role="main" class="container-fluid m-f">
+
+    <section class="m-4 mt-4">
+
+      <article class="container text-white bg-windows mx-auto  p-2 my-3" style="border-radius: 1.5rem">
+
+        <div class="px-2 mb-2 mt-2">
+
+          <div id="myMap" class="map" style="border-radius: 1rem !important; overflow: hidden;"></div>
+
+        </div>
+
+        <div class="mx-auto text-center">
+
+          <a href="parking-register.html"
+            class="btn btn-lg btn-block rounded-4 box-shadow text-bold px-5 fs-6 text-center btn-primary mb-2">Registrar
+            Parking</a>
+
+        </div>
+
+      </article>
+
+    </section>
+
+    <!--  Toast  -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Notificación</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Su tiempo de estacionamiento está a punto de terminar.
+          <div class="mt-2 pt-2 border-top">
+            <button id="show-modal-btn" class="btn btn-sm rounded-4 box-shadow text-bold px-2 fs-6 text-center btn-secondary mt-1" onclick="showModal()">Agregar
+              más</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal text-shadow-none" id="myModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-white">Tarjeta de crédito/débito</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-black">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-3" id="floatingInput" placeholder="Nombre completo"
+                form="dummyForm">
+              <label for="floatingInput">Nombre completo</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control rounded-3" id="floatingNumber" placeholder="Numero de la tarjeta"
+                form="dummyForm">
+              <label for="floatingNumber">Numero de la tarjeta</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-3" id="expiration" placeholder="Fecha de vencimiento"
+                maxlength="5" oninput="formatExpiration()" form="dummyForm">
+              <label for="expiration">Fecha de vencimiento</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control rounded-3" id="floatingCod" maxlength="4"
+                placeholder="Código de seguridad" form="dummyForm">
+              <label for="floatingCod">Codigo de seguridad</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-red text-white" data-bs-dismiss="modal">Cerrar
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="">Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <script type='text/javascript'
+    src='https://www.bing.com/api/maps/mapcontrol?callback=initializeBingMap&key=AmmJKyxVf-6eaa2iHK_GT4J0wH58FQbLciGKGgSMYZWJSjeZ8x5Tc67SrzWnTLmQ&setLang=es'
+    async defer></script>
+
+
+
+  <script type='text/javascript'>
+    const parkingPlacesData = [];
+    const viewName = "home";
+  </script>
+
+  <script type='text/javascript' charset="UTF-8" src="js/bingMaps.js"></script>
+
+  <script type='text/javascript'>
+    const toastTrigger = document.getElementById('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast')
+    
+    if (toastTrigger) {
+      toastTrigger.addEventListener('click', () => {
+        const toast = new bootstrap.Toast(toastLiveExample)
+        const btn = document.getElementById("show-modal-btn");
+
+        btn.addEventListener("click", () => {
+          toast.hide();
+        })
+        toast.show()
+      })
+    }
+  </script>
+
+  <script type='text/javascript'>
+    function showModal() {
+      const modal = new bootstrap.Modal(document.getElementById("myModal"));
+      
+      modal.show();
+
+      const acceptButton = document.querySelector("[data-bs-dismiss='modal'][data-bs-save-changes]");
+      acceptButton.addEventListener("click", () => {
+        modal.hide();
+        firstRadio.disabled = false;
+      });
+
+      modal._element.addEventListener("hidden.bs.modal", () => {
+        firstRadio.disabled = false;
+      });
+    }
+  </script>
+
+
+<footer class="bg-windows">
+  <div class="container py-3">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-12 col-md-6 text-white mb-3 mb-md-0">© 2023 estacionAR, Argentina</div>
+      <div class="col-12 col-md-6">
+        <ul class="nav justify-content-md-end justify-content-center">
+          <li class="ms-3"><a class="text-white" href="#"><i class="fa-brands fa-twitter"></i></a></li>
+          <li class="ms-3"><a class="text-white" href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+          <li class="ms-3"><a class="text-white" href="#"><i class="fa-brands fa-instagram"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/menuDesplegable.js"></script>
+<script src="https://kit.fontawesome.com/c0cf04e4bc.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/ad6343f94b.js" crossorigin="anonymous"></script>
+</html>

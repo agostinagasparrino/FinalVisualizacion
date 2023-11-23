@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Condensed:wght@400;700&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
+body {
+    background-color: #f0f0f0 !important;
+}
+
+.modal-content {
+    background-color: #28A2E1;
+}
+
+.modal{
+    padding: 1% !important;
+}
+
+.profile{
+    padding: 1% !important;
+}
+
+.aqui{
+    color: #28A2E1;
+    text-decoration: none !important;
+}
+
+a {
+    color: white;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: white;
+}
+
+/* Backgrounds */
+
+.bg-primary{
+    background-color: #FEBC3D !important;
+}
+
+.bg-secondary{
+    background-color: #46433F !important;
+}
+
+.bg-terciary{
+    background-color: #A47823;
+}
+
+.bg-windows{
+    background-color: #28A2E1;
+}
+
+/* Buttons */
+
+.btn-primary{
+    background-color: #FEBC3D;
+    border: #f3aa22;
+}
+
+.btn-primary:hover{
+    background-color: #e4a736;
+}
